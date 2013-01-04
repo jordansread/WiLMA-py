@@ -11,7 +11,7 @@ Copyright (c) 2013 USGS. All rights reserved.
 import pyGDP
 import os
 
-QA = True
+QA = True #if true, reset locations for services to QA servers
 filePath = '/Volumes/projects/WiLMA/zippedLakes/'
 
 if QA:
@@ -19,8 +19,6 @@ if QA:
     pyGDP.upload_URL = 'http://cida-wiwsc-gdp2qa.er.usgs.gov:8082/geoserver'
     pyGDP.WPS_Service    = 'http://cida.usgs.gov/qa/climate/gdp/utility/WebProcessingService'
     pyGDP.WPS_URL = 'http://cida.usgs.gov/qa/climate/gdp/process/WebProcessingService'
-
-datasetURI    = 'dods://regclim.coas.oregonstate.edu:8080/thredds/dodsC/regcmdata/EH5/ena/Daily/RegCM3_Daily_ena_EH5.ncml'
 
 # initialize pyGDP object
 pyGDP 	   = pyGDP.pyGDPwebProcessing()
