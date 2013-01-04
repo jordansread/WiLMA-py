@@ -26,12 +26,13 @@ pyGDP 	   = pyGDP.pyGDPwebProcessing()
 for filename in os.listdir(filePath):
 	print filename
 
-shpNm = 'WiLMA_lake_100000'
+shpNm = 'WiLMA_lake_12050'
 try:
 	shpfile = pyGDP.uploadShapeFile(filePath+shpNm+'.zip')
+	print 'successfully uploaded %s' % (shpfile)
 except Exception, msg:
 	shpfile = shpNm
-	print msg
+	print '%s %s' % (shpfile,msg)
 
 
 # get attributes
