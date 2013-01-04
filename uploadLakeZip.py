@@ -24,16 +24,12 @@ if QA:
 pyGDP 	   = pyGDP.pyGDPwebProcessing()
 
 for filename in os.listdir(filePath):
-	print filename
-
-shpNm = 'WiLMA_lake_12050'
-try:
-	shpfile = pyGDP.uploadShapeFile(filePath+shpNm+'.zip')
-	print 'successfully uploaded %s' % (shpfile)
-except Exception, msg:
-	shpfile = shpNm
-	print '%s %s' % (shpfile,msg)
-
+	try:
+		shpfile = pyGDP.uploadShapeFile(filePath+filename)
+		print 'successfully uploaded %s' % (shpfile)
+	except Exception, msg:
+		shpfile = filename[0:len(filename)-4]
+		print '%s %s' % (shpfile,msg)
 
 # get attributes
 att = pyGDP.getAttributes(shpfile)
@@ -41,6 +37,6 @@ att = pyGDP.getAttributes(shpfile)
 
 val = pyGDP.getValues(shpfile,att[0])
 for v in val:
-	print v
+	print '%s has attribute %s and value %s' % (shpfile,att[0],v)
 
 
