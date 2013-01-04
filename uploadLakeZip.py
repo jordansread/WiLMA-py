@@ -25,26 +25,19 @@ datasetURI    = 'dods://regclim.coas.oregonstate.edu:8080/thredds/dodsC/regcmdat
 # initialize pyGDP object
 pyGDP 	   = pyGDP.pyGDPwebProcessing()
 
-shpfile = pyGDP.uploadShapeFile(filePath+'WiLMA_lake_10000.zip')
+for filename in os.listdir(filePath):
+	print filename
 
+shpNm = 'WiLMA_lake_100000'
+try:
+	shpfile = pyGDP.uploadShapeFile(filePath+shpNm+'.zip')
+except Exception, msg:
+	shpfile = shpNm
+	print msg
 
-# query geoserver
-shp = pyGDP.getShapefiles()
-fileFound = False
-for s in shp:
-    if s == shpfile:
-        fileFound = True
-
-if not fileFound:
-    print 'file %s not found on geoserver' % shpfile
-else:
-    print 'file upload: passed'
-    print 'file query: passed'
 
 # get attributes
 att = pyGDP.getAttributes(shpfile)
-for a in att:
-	print a
 
 
 val = pyGDP.getValues(shpfile,att[0])
