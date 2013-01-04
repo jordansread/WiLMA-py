@@ -46,7 +46,8 @@ att = pyGDP.getAttributes(shpfile)
 for a in att:
 	print a
 
-val = pyGDP.getValues(shpfile,att)
+
+val = pyGDP.getValues(shpfile,att[0])
 for v in val:
 	print v
 
