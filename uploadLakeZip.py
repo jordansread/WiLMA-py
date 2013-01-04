@@ -12,7 +12,7 @@ import pyGDP
 import os
 
 QA = True
-filePath = 'mendota_shape.zip'
+filePath = '/Volumes/projects/WiLMA/zippedLakes/'
 
 if QA:
     pyGDP.WFS_URL    = 'http://cida-wiwsc-gdp2qa.er.usgs.gov:8082/geoserver/wfs'
@@ -25,16 +25,7 @@ datasetURI    = 'dods://regclim.coas.oregonstate.edu:8080/thredds/dodsC/regcmdat
 # initialize pyGDP object
 pyGDP 	   = pyGDP.pyGDPwebProcessing()
 
-
-newName = d.choice(s.letters)+d.choice(s.letters)+d.choice(s.letters)+d.choice(s.letters)+d.choice(s.letters)+d.choice(s.letters)+'.zip'
-print newName
-os.rename(filePath,newName)
-shpfile = pyGDP.uploadShapeFile(newName)
-os.rename(newName,filePath)
-
-URIs = pyGDP.getDataSetURI()
-for u in URIs:
-    print u
+shpfile = pyGDP.uploadShapeFile(filePath+'WiLMA_lake_10000.zip')
 
 
 # query geoserver
@@ -52,41 +43,11 @@ else:
 
 # get attributes
 att = pyGDP.getAttributes(shpfile)
-att = att[0]
+for a in att:
+	print a
 
 val = pyGDP.getValues(shpfile,att)
-val = val[0]
-
-print 'Attribute search: passed'
-print 'Value search: passed'
-
-# time range
-varID = pyGDP.getDataType(datasetURI)
-varID = varID[0]
-TR = pyGDP.getTimeRange(datasetURI,varID)
-timeStart = TR[0]
-timeEnd   = '1896'+timeStart[4:len(timeStart)]
-print 'Time search: passed'
+for v in val:
+	print v
 
 
-outputFile_handle = pyGDP.submitFeatureWeightedGridStatistics(
-    shpfile,datasetURI,varID,timeStart,timeEnd,att,val)
-
-print outputFile_handle
-
-outputFile_handle = pyGDP.submitFeatureWeightedGridStatistics(
-    shpfile,datasetURI,varID,timeStart,timeEnd,att,val)
-
-print outputFile_handle
-outputFile_handle = pyGDP.submitFeatureWeightedGridStatistics(
-    shpfile,datasetURI,varID,timeStart,timeEnd,att,val)
-
-print outputFile_handle
-outputFile_handle = pyGDP.submitFeatureWeightedGridStatistics(
-    shpfile,datasetURI,varID,timeStart,timeEnd,att,val)
-
-print outputFile_handle
-outputFile_handle = pyGDP.submitFeatureWeightedGridStatistics(
-    shpfile,datasetURI,varID,timeStart,timeEnd,att,val)
-
-print outputFile_handle
